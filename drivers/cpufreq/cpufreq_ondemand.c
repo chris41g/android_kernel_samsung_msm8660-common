@@ -131,9 +131,9 @@ static struct dbs_tuners {
 	.sampling_down_factor = DEF_SAMPLING_DOWN_FACTOR,
 	.down_differential = DEF_FREQUENCY_DOWN_DIFFERENTIAL,
 	.ignore_nice = 1,
-	.powersave_bias = 1,
+	.powersave_bias = 500,
 	.freq_boost_time = DEFAULT_FREQ_BOOST_TIME,
-	.boostfreq = MAX_FREQ_LIMIT,
+	.boostfreq = DEFAULT_FREQ_BOOST_TIME,
 };
 
 static inline cputime64_t get_cpu_idle_time_jiffy(unsigned int cpu,
