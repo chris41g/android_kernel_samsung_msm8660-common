@@ -3,13 +3,13 @@
  * them to run sooner, but does not allow tons of sleepers to
  * rip the spread apart.
  */
-SCHED_FEAT(GENTLE_FAIR_SLEEPERS, 1)
+SCHED_FEAT(GENTLE_FAIR_SLEEPERS, 0)
 
 /*
  * Place new tasks ahead so that they do not starve already running
  * tasks
  */
-SCHED_FEAT(START_DEBIT, 1)
+SCHED_FEAT(START_DEBIT, 0)
 
 /*
  * Should wakeups try to preempt running tasks.
@@ -51,7 +51,7 @@ SCHED_FEAT(ARCH_POWER, 0)
 
 SCHED_FEAT(HRTICK, 0)
 SCHED_FEAT(DOUBLE_TICK, 0)
-SCHED_FEAT(LB_BIAS, 1)
+SCHED_FEAT(LB_BIAS, 0)
 
 /*
  * Spin-wait on mutex acquisition when the mutex owner is running on
