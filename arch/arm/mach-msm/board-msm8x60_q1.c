@@ -766,8 +766,8 @@ static struct regulator_init_data saw_s0_init_data = {
 		.constraints = {
 			.name = "8901_s0",
 			.valid_ops_mask = REGULATOR_CHANGE_VOLTAGE,
-			.min_uV = 800000,
-			.max_uV = 1250000,
+			.min_uV = 700000,
+			.max_uV = 1350000,
 		},
 		.consumer_supplies = vreg_consumers_8901_S0,
 		.num_consumer_supplies = ARRAY_SIZE(vreg_consumers_8901_S0),
@@ -777,8 +777,8 @@ static struct regulator_init_data saw_s1_init_data = {
 		.constraints = {
 			.name = "8901_s1",
 			.valid_ops_mask = REGULATOR_CHANGE_VOLTAGE,
-			.min_uV = 800000,
-			.max_uV = 1250000,
+			.min_uV = 700000,
+			.max_uV = 1350000,
 		},
 		.consumer_supplies = vreg_consumers_8901_S1,
 		.num_consumer_supplies = ARRAY_SIZE(vreg_consumers_8901_S1),
@@ -7076,6 +7076,12 @@ int get_mhl_int_irq(void)
 	};
 
 		pr_info("mhl_v2, Board : %s, rev:%d\n", __func__, hw_rev);
+/* RPM early regulator constraints */
+static struct rpm_regulator_init_data rpm_regulator_early_init_data[] = {
+	/*	 ID       a_on pd ss min_uV   max_uV   init_ip    freq */
+	RPM_SMPS(PM8058_S0, 0, 1, 1,  500000, 1350000, SMPS_HMIN, 1p60),
+	RPM_SMPS(PM8058_S1, 0, 1, 1,  500000, 1350000, SMPS_HMIN, 1p60),
+};
 
 #if defined(CONFIG_KOR_MODEL_SHV_E110S)
 	if (hw_rev < 7){
