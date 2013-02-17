@@ -15,6 +15,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_SMARTASS2)  += cpufreq_smartass2.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTERACTIVEX)  += cpufreq_interactiveX.o
 obj-$(CONFIG_CPU_FREQ_GOV_GALLIMAUFRY)  += cpufreq_gallimaufry.o
 obj-$(CONFIG_CPU_FREQ_GOV_ONDEMANDX)  += cpufreq_ondemandx.o
+obj-$(CONFIG_CPU_FREQ_GOV_LULZACTIVE)  += cpufreq_lulzactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTELLIDEMAND)+= cpufreq_intellidemand.o
 obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)  += cpufreq_lionheart.o
 
