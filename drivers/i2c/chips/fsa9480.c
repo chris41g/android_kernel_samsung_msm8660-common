@@ -1124,12 +1124,8 @@ static void fsa9480_detect_dev(struct fsa9480_usbsw *usbsw)
 		/* USB */
 		if (usbsw->dev1 & DEV_USB ||
 				usbsw->dev2 & DEV_T2_USB_MASK) {
-      if (pdata->usb_cb) {
-        if (pdata->charger_cb && force_fast_charge != 0) {
-                            dev_info(&client->dev, "fastcharge detached\n");
-          pdata->charger_cb(FSA9480_DETACHED); 
-        } else pdata->usb_cb(FSA9480_DETACHED);
-      }
+			if (pdata->uart_cb)
+				pdata->usb_cb(FSA9480_DETACHED);
 		/* UART */
 		} else if (usbsw->dev1 & DEV_T1_UART_MASK ||
 				usbsw->dev2 & DEV_T2_UART_MASK) {
