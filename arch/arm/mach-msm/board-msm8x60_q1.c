@@ -7076,12 +7076,6 @@ int get_mhl_int_irq(void)
 	};
 
 		pr_info("mhl_v2, Board : %s, rev:%d\n", __func__, hw_rev);
-/* RPM early regulator constraints */
-static struct rpm_regulator_init_data rpm_regulator_early_init_data[] = {
-	/*	 ID       a_on pd ss min_uV   max_uV   init_ip    freq */
-	RPM_SMPS(PM8058_S0, 0, 1, 1,  500000, 1350000, SMPS_HMIN, 1p60),
-	RPM_SMPS(PM8058_S1, 0, 1, 1,  500000, 1350000, SMPS_HMIN, 1p60),
-};
 
 #if defined(CONFIG_KOR_MODEL_SHV_E110S)
 	if (hw_rev < 7){
