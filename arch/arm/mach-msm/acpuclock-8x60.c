@@ -56,7 +56,6 @@
 #define SCPLL_LOW_VDD_FMAX	 594000 /* KHz */
 #define SCPLL_LOW_VDD		1000000 /* uV */
 #define SCPLL_NOMINAL_VDD	1100000 /* uV */
-#define MAX_BOOT_FREQ           1512000 /* speed up boot time a bit */
 
 /* SCPLL Modes. */
 #define SCPLL_POWER_DOWN	0
@@ -949,7 +948,7 @@ static int __init acpuclk_8x60_init(struct acpuclk_soc_data *soc_data)
 
 	/* Improve boot time by ramping up CPUs immediately. */
 	for_each_online_cpu(cpu)
-		acpuclk_8x60_set_rate(cpu, MAX_BOOT_FREQ, SETRATE_INIT);
+		acpuclk_8x60_set_rate(cpu, max_cpu_khz, SETRATE_INIT);
 
 	acpuclk_register(&acpuclk_8x60_data);
 	cpufreq_table_init();

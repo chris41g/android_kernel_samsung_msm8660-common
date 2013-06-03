@@ -300,15 +300,12 @@ static void dvfs_hotplug_callback(struct work_struct *unused)
 #if defined(DUALBOOST_DEFERED_QUEUE)
 static DECLARE_WORK(dvfs_hotplug_work, dvfs_hotplug_callback);
 #endif
-=======
-
 static int is_dual_locked;
 
 int get_dual_boost_state(void)
 {
   return is_dual_locked;
 }
->>>>>>> 8219e6b... add mpdecision
 
 void dual_boost(unsigned int boost_on)
 {

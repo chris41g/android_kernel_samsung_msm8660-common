@@ -429,7 +429,11 @@ config CPU_FREQ_GOV_USERSPACE
 	  To compile this driver as a module, choose M here: the
 	  module will be called cpufreq_userspace.
 
-	  For details, taconfig CPU_FREQ_GOV_BADASS
+	  For details, take a look at <file:Documentation/cpu-freq/>.
+
+	  If in doubt, say Y.
+
+config CPU_FREQ_GOV_BADASS
 	tristate "'badass' cpufreq policy governor"
 	select CPU_FREQ_TABLE
 	help
