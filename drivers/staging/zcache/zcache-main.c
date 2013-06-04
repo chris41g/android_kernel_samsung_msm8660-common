@@ -1748,6 +1748,8 @@ static void zcache_cleancache_put_page(int pool_id,
 	u32 ind = (u32) index;
 	struct tmem_oid oid = *(struct tmem_oid *)&key;
 
+        if (!PageWasActive(page))
+             return;
 	if (likely(ind == index))
 		(void)zcache_put_page(LOCAL_CLIENT, pool_id, &oid, index, page);
 }
@@ -1762,6 +1764,8 @@ static int zcache_cleancache_get_page(int pool_id,
 
 	if (likely(ind == index))
 		ret = zcache_get_page(LOCAL_CLIENT, pool_id, &oid, index, page);
+        if (ret == 0)
+          SetPageWasActive(page);
 	return ret;
 }
 
@@ -1810,9 +1814,9 @@ static int zcache_cleancache_init_shared_fs(char *uuid, size_t pagesize)
 static struct cleancache_ops zcache_cleancache_ops = {
 	.put_page = zcache_cleancache_put_page,
 	.get_page = zcache_cleancache_get_page,
-	.flush_page = zcache_cleancache_flush_page,
-	.flush_inode = zcache_cleancache_flush_inode,
-	.flush_fs = zcache_cleancache_flush_fs,
+	.invalidate_page = zcache_cleancache_flush_page,
+	.invalidate_inode = zcache_cleancache_flush_inode,
+	.invalidate_fs = zcache_cleancache_flush_fs,
 	.init_shared_fs = zcache_cleancache_init_shared_fs,
 	.init_fs = zcache_cleancache_init_fs
 };
@@ -1920,8 +1924,8 @@ static void zcache_frontswap_init(unsigned ignored)
 static struct frontswap_ops zcache_frontswap_ops = {
 	.put_page = zcache_frontswap_put_page,
 	.get_page = zcache_frontswap_get_page,
-	.flush_page = zcache_frontswap_flush_page,
-	.flush_area = zcache_frontswap_flush_area,
+	.invalidate_page = zcache_frontswap_flush_page,
+	.invalidate_area = zcache_frontswap_flush_area,
 	.init = zcache_frontswap_init
 };
 
