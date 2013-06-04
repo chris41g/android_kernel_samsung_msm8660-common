@@ -20,6 +20,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_LULZACTIVE)  += cpufreq_lulzactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_BADASS)  += cpufreq_badass.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTELLIDEMAND)+= cpufreq_intellidemand.o
 obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)  += cpufreq_lionheart.o
+obj-$(CONFIG_CPU_FREQ_GOV_HOTPLUG)    += cpufreq_hotplug.o
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o

@@ -445,6 +445,9 @@ extern struct cpufreq_governor cpufreq_gov_badass;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_FANTASY)
 extern struct cpufreq_governor cpufreq_gov_fantasy;
 #define CPUFREQ_DEFAULT_GOVERNOR  (&cpufreq_gov_fantasy)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_HOTPLUG)
+extern struct cpufreq_governor cpufreq_gov_hotplug;
+#define CPUFREQ_DEFAULT_GOVERNOR  (&cpufreq_gov_hotplug)
 #endif
 
 
