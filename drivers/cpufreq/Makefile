@@ -23,6 +23,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_LIONHEART)  += cpufreq_lionheart.o
 obj-$(CONFIG_CPU_FREQ_GOV_HOTPLUG)    += cpufreq_hotplug.o
 obj-$(CONFIG_CPU_FREQ_GOV_NIGHTMARE)    += cpufreq_nightmare.o
 obj-$(CONFIG_CPU_FREQ_GOV_ADAPTIVE)    += cpufreq_adaptive.o
+obj-$(CONFIG_CPU_FREQ_GOV_ABYSSPLUG)    += cpufreq_abyssplug.o
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o
