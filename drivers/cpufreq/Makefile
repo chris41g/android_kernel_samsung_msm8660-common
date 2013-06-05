@@ -12,6 +12,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_CONSERVATIVE)	+= cpufreq_conservative.o
 obj-$(CONFIG_CPU_FREQ_GOV_FANTASY)    += cpufreq_fantasy.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTERACTIVE)	+= cpufreq_interactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_WHEATLEY)  += cpufreq_wheatley.o
+obj-$(CONFIG_CPU_FREQ_GOV_SMARTASS)  += cpufreq_smartass.o
 obj-$(CONFIG_CPU_FREQ_GOV_SMARTASS2)  += cpufreq_smartass2.o
 obj-$(CONFIG_CPU_FREQ_GOV_INTERACTIVEX)  += cpufreq_interactiveX.o
 obj-$(CONFIG_CPU_FREQ_GOV_GALLIMAUFRY)  += cpufreq_gallimaufry.o
@@ -24,9 +25,25 @@ obj-$(CONFIG_CPU_FREQ_GOV_HOTPLUG)    += cpufreq_hotplug.o
 obj-$(CONFIG_CPU_FREQ_GOV_NIGHTMARE)    += cpufreq_nightmare.o
 obj-$(CONFIG_CPU_FREQ_GOV_ADAPTIVE)    += cpufreq_adaptive.o
 obj-$(CONFIG_CPU_FREQ_GOV_ABYSSPLUG)    += cpufreq_abyssplug.o
+obj-$(CONFIG_CPU_FREQ_GOV_LAZY)    += cpufreq_lazy.o
+obj-$(CONFIG_CPU_FREQ_GOV_LAGFREE)  += cpufreq_lagfree.o
+obj-$(CONFIG_CPU_FREQ_GOV_SCARY)  += cpufreq_scary.o
+obj-$(CONFIG_CPU_FREQ_GOV_PEGASUSQ)  += cpufreq_pegasusq.o
+obj-$(CONFIG_CPU_FREQ_GOV_ASSWAX)  += cpufreq_asswax.o
+obj-$(CONFIG_CPU_FREQ_GOV_SUPERBAD)    += cpufreq_superbad.o
+obj-$(CONFIG_CPU_FREQ_GOV_VIRTUOUS)     += cpufreq_virtuous.o
+obj-$(CONFIG_CPU_FREQ_GOV_SMOOTHASS)    += cpufreq_smoothass.o
+obj-$(CONFIG_CPU_FREQ_GOV_SLP)    += cpufreq_slp.o
+obj-$(CONFIG_CPU_FREQ_GOV_MINMAX)    += cpufreq_minmax.o
+obj-$(CONFIG_CPU_FREQ_GOV_SAVAGEDZEN)  += cpufreq_savaged_zen.o
+obj-$(CONFIG_CPU_FREQ_GOV_SAKURACTIVE)  += cpufreq_sakuractive.o
+
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o
+
+# CPUfreq misc
+obj-$(CONFIG_LINK_CPU_GOVERNORS)  	+= cpugovsync.o 
 
 ##################################################################################d
 # x86 drivers.
