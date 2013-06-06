@@ -34,7 +34,7 @@
 #include <linux/ktime.h>
 #include <linux/sched.h>
 
-#define DEF_FREQUENCY_UP_THRESHOLD		(70)
+#define DEF_FREQUENCY_UP_THRESHOLD		(65)
 #define DEF_FREQUENCY_DOWN_THRESHOLD		(30)
 #define MIN_SAMPLING_RATE_RATIO			(2)
 
@@ -47,14 +47,6 @@ static unsigned int min_sampling_rate;
 #define TRANSITION_LATENCY_LIMIT		(10 * 1000 * 1000)
 
 static void do_dbs_timer(struct work_struct *work);
-
-struct lionheart {
-	int cpu;
-	unsigned int cur_freq;
-	unsigned int min_freq;
-	unsigned int max_freq;
-	struct cpufreq_policy *policy;
-};
 
 struct cpu_dbs_info_s {
 	cputime64_t prev_cpu_idle;
@@ -412,6 +404,7 @@ static void do_dbs_timer(struct work_struct *work)
 static inline void dbs_timer_init(struct cpu_dbs_info_s *dbs_info)
 {
 	int delay = usecs_to_jiffies(dbs_tuners_ins.sampling_rate);
+
 	// delay -= jiffies % delay;
 
 	dbs_info->enable = 1;
@@ -549,3 +542,4 @@ MODULE_LICENSE("GPL");
 
 fs_initcall(cpufreq_gov_dbs_init);
 module_exit(cpufreq_gov_dbs_exit);
+

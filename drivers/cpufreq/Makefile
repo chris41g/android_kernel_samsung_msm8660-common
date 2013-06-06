@@ -37,7 +37,7 @@ obj-$(CONFIG_CPU_FREQ_GOV_SLP)    += cpufreq_slp.o
 obj-$(CONFIG_CPU_FREQ_GOV_MINMAX)    += cpufreq_minmax.o
 obj-$(CONFIG_CPU_FREQ_GOV_SAVAGEDZEN)  += cpufreq_savaged_zen.o
 obj-$(CONFIG_CPU_FREQ_GOV_SAKURACTIVE)  += cpufreq_sakuractive.o
-
+obj-$(CONFIG_CPU_FREQ_GOV_SAMSUNG)	+= cpufreq_samsung.o
 
 # CPUfreq cross-arch helpers
 obj-$(CONFIG_CPU_FREQ_TABLE)		+= freq_table.o
