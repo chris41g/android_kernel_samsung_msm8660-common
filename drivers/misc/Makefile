@@ -84,4 +84,4 @@ endif
 
 ifeq ($(CONFIG_GENERIC_BLN),y)
 obj-$(CONFIG_GENERIC_BLN) += bln.o
-endif 
+endif

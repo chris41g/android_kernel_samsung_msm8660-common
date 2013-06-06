@@ -339,6 +339,13 @@ static inline unsigned int cpufreq_quick_get(unsigned int cpu)
 }
 #endif
 
+
+#ifdef CONFIG_SEC_DVFS
+enum {
+	BOOT_CPU = 0,
+	NON_BOOT_CPU = 1
+};
+
 #define MAX_FREQ_LIMIT		1512000
 #define MIN_FREQ_LIMIT		384000
 
@@ -350,13 +357,6 @@ static inline unsigned int cpufreq_quick_get(unsigned int cpu)
 #endif
 
 #define UPDATE_NOW_BITS		0xFF
-
-
-#ifdef CONFIG_SEC_DVFS
-enum {
-	BOOT_CPU = 0,
-	NON_BOOT_CPU = 1
-};
 
 enum {
 	DVFS_NO_ID 				= 0,
@@ -499,6 +499,9 @@ extern struct cpufreq_governor cpufreq_gov_brazilianwax;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_SMARTASS)
 extern struct cpufreq_governor cpufreq_gov_smartass;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_smartass)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_SAMSUNG)
+extern struct cpufreq_governor cpufreq_gov_samsung;
+#define CPUFREQ_DEFAULT_GOVERNOR  (&cpufreq_gov_samsung)
 #endif
 
 
