@@ -41,6 +41,8 @@
 #include <linux/i2c/isa1200.h>
 #include <linux/dma-mapping.h>
 #include <linux/i2c/bq27520.h>
+#include <linux/fastchg.h>
+#include <linux/msm_tsens.h>
 
 #if defined(CONFIG_TOUCHSCREEN_ATMEL_MXT540E)
 #include <linux/i2c/mxt540e_q1.h>
@@ -180,6 +182,17 @@ static struct wacom_g5_callbacks *wacom_callbacks;
 #endif
 #ifdef CONFIG_FB_MSM_MIPI_DSI_ESD_REFRESH
 #include <linux/video/sec_mipi_lcd_esd_refresh.h>
+#endif
+
+#ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
+  int set_two_phase_freq(int cpufreq);
+#endif 
+
+#ifdef CONFIG_CPU_FREQ_GOV_BADASS_2_PHASE
+	int set_two_phase_freq_badass(int cpufreq);
+#endif
+#ifdef CONFIG_CPU_FREQ_GOV_BADASS_3_PHASE
+	int set_three_phase_freq_badass(int cpufreq);
 #endif
 
 #define MSM_SHARED_RAM_PHYS 0x40000000
@@ -8289,6 +8302,13 @@ static struct platform_device *early_devices[] __initdata = {
 	&msm_device_dmov_adm1,
 };
 
+static struct tsens_platform_data her_tsens_pdata = {
+	.tsens_factor = 1000,
+	.hw_type = MSM_8660,
+	.tsens_num_sensor = 6,
+	.slope = {702},
+};
+
 #if 0 //(defined(CONFIG_MARIMBA_CORE)) && (defined(CONFIG_MSM_BT_POWER) || defined(CONFIG_MSM_BT_POWER_MODULE))
 
 static int bluetooth_power(int);
@@ -8309,10 +8329,12 @@ static struct platform_device bcm4330_bluetooth_device = {
 };
 #endif
 
+/*
 static struct platform_device msm_tsens_device = {
 	.name   = "tsens-tm",
 	.id = -1,
 };
+*/
 
 #ifdef CONFIG_VP_A2220
 extern int a2220_ctrl(unsigned int cmd , unsigned long arg);
@@ -9552,7 +9574,7 @@ static struct platform_device *surf_devices[] __initdata = {
 	&msm_device_rng,
 #endif
 
-	&msm_tsens_device,
+	//&msm_tsens_device,
 	&msm_rpm_device,
 #ifdef CONFIG_ION_MSM
 	&ion_dev,
@@ -16850,6 +16872,8 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 	};
 #endif
 
+
+
 #ifdef CONFIG_BATTERY_SEC
 	is_lpm_boot = sec_get_lpm_mode();
 #endif
@@ -16864,6 +16888,9 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 	 * Initialize RPM first as other drivers and devices may need
 	 * it for their initialization.
 	 */
+
+  msm_tsens_early_init(&her_tsens_pdata);
+
 #ifdef CONFIG_MSM_RPM
 	BUG_ON(msm_rpm_init(&msm_rpm_data));
 #endif
@@ -16938,6 +16965,22 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 	/* CPU frequency control is not supported on simulated targets. */
 	if (!machine_is_msm8x60_rumi3() && !machine_is_msm8x60_sim())
 		acpuclk_init(&acpuclk_8x60_soc_data);
+
+#ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
+        set_two_phase_freq(CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE_FREQ);
+#endif 
+
+#ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
+        set_two_phase_freq(CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE_FREQ);
+#endif 
+
+#ifdef CONFIG_CPU_FREQ_GOV_BADASS_2_PHASE
+  	set_two_phase_freq_badass(CONFIG_CPU_FREQ_GOV_BADASS_2_PHASE_FREQ);
+#endif
+
+#ifdef CONFIG_CPU_FREQ_GOV_BADASS_3_PHASE
+	set_three_phase_freq_badass(CONFIG_CPU_FREQ_GOV_BADASS_3_PHASE_FREQ);
+#endif 
 
 	/*
 	 * Enable EBI2 only for boards which make use of it. Leave
