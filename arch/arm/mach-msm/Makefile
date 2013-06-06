@@ -23,13 +23,13 @@ GPIOMUX_OBJ_NAME:=gpiomux-8x60_p5lte.o
 endif
 
 obj-y += io.o dma.o memory.o
+obj-$(CONFIG_MSM_MPDEC)      += msm_mpdecision.o 
 ifndef CONFIG_ARM_ARCH_TIMER
 obj-y += timer.o
 endif
 obj-y += clock.o clock-voter.o clock-dummy.o
 obj-y += modem_notifier.o subsystem_map.o
 obj-$(CONFIG_CPU_FREQ_MSM) += cpufreq.o
-obj-$(CONFIG_MSM_MPDEC) += msm_mpdecision.o
 obj-$(CONFIG_DEBUG_FS) += nohlt.o clock-debug.o
 obj-$(CONFIG_KEXEC) += msm_kexec.o
 
@@ -221,7 +221,6 @@ ifdef CONFIG_MSM_CAMERA_V4L2
 	obj-$(CONFIG_ARCH_MSM8X60) += board-msm8x60-camera.o
 endif
 obj-$(CONFIG_ARCH_FSM9XXX) += devices-fsm9xxx.o
-obj-$(CONFIG_ARCH_MSM8X60) += fastchg.o
 obj-$(CONFIG_ARCH_FSM9XXX) += clock-fsm9xxx.o clock-local.o acpuclock-fsm9xxx.o
 obj-$(CONFIG_ARCH_FSM9XXX) += dfe-fsm9xxx.o rfic-fsm9xxx.o
 obj-$(CONFIG_ARCH_FSM9XXX) += restart-fsm9xxx.o xo-fsm9xxx.o
@@ -256,7 +255,11 @@ obj-$(CONFIG_ARCH_MSM8960) += acpuclock-8960.o
 obj-$(CONFIG_ARCH_MSM8960) += memory_topology.o
 obj-$(CONFIG_ARCH_MSM8960) += saw-regulator.o
 obj-$(CONFIG_ARCH_MSM8960) += devices-8960.o
+obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o 
 obj-$(CONFIG_ARCH_APQ8064) += devices-8960.o devices-8064.o
+obj-$(CONFIG_MSM_MPDEC) += msm_mpdecision.o
+obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
+obj-$(CONFIG_KGSL_GPU_CTRL) += gpu_freq.o
 board-8960-all-objs += board-8960.o board-8960-camera.o board-8960-display.o board-8960-pmic.o board-8960-storage.o board-8960-gpiomux.o
 board-8930-all-objs += board-8930.o board-8930-camera.o board-8930-display.o board-8930-pmic.o board-8930-storage.o board-8930-gpiomux.o
 board-8064-all-objs += board-8064.o board-8064-pmic.o board-8064-storage.o board-8064-gpiomux.o board-8064-camera.o
@@ -327,7 +330,13 @@ obj-y	+= gpio.o
 endif
 endif
 
+ifdef CONFIG_MSM_SLEEP_STATS
+obj-y += msm_rq_stats.o idle_stats.o
+else
+ifdef CONFIG_MSM_MPDEC
 obj-y += msm_rq_stats.o
+endif
+endif
 obj-$(CONFIG_MSM_SLEEP_STATS_DEVICE) += idle_stats_device.o
 obj-$(CONFIG_MSM_DCVS) += msm_dcvs_scm.o msm_dcvs.o msm_dcvs_idle.o
 obj-$(CONFIG_MSM_SHOW_RESUME_IRQ) += msm_show_resume_irq.o
