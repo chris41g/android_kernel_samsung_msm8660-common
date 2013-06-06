@@ -130,6 +130,7 @@
 #define VERSION_FSA9480                0
 #define VERSION_FSA9485                1
 
+extern int force_fast_charge;
 
 struct fsa9480_usbsw {
 	struct i2c_client		*client;
@@ -940,8 +941,13 @@ static void fsa9480_detect_dev(struct fsa9480_usbsw *usbsw)
 		if (val1 & DEV_USB || val2 & DEV_T2_USB_MASK) {
 			dev_info(&client->dev, "usb connect\n");
 			
-			if (pdata->usb_cb)
-				pdata->usb_cb(FSA9480_ATTACHED);
+      if (pdata->usb_cb) {
+        if (pdata->charger_cb && force_fast_charge != 0) {
+          dev_info(&client->dev, "fastcharge\n");
+          pdata->charger_cb(FSA9480_ATTACHED);
+        } else pdata->usb_cb(FSA9480_ATTACHED);
+      }
+
 			if (usbsw->mansw) {
 				ret = i2c_smbus_write_byte_data(client,
 #ifdef CONFIG_TARGET_LOCALE_US_ATT_REV01
@@ -1120,7 +1126,6 @@ static void fsa9480_detect_dev(struct fsa9480_usbsw *usbsw)
 				usbsw->dev2 & DEV_T2_USB_MASK) {
 			if (pdata->usb_cb)
 				pdata->usb_cb(FSA9480_DETACHED);
-			
 		/* UART */
 		} else if (usbsw->dev1 & DEV_T1_UART_MASK ||
 				usbsw->dev2 & DEV_T2_UART_MASK) {
